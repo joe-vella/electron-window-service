@@ -1,16 +1,16 @@
 
-import {WindowModel} from '../../app.services/window-service/models/window-model';
-import {WindowMessage} from '../../app.services/window-service/models/window-message';
+import {ElectronWindowModel} from '../../app.services/window-service/models/electron-window-model';
+import {ElectronWindowMessage} from '../../app.services/window-service/models/electron-window-message';
 import * as electron from 'electron';
 
 const windowService = electron.remote.require('./app.services/window-service/electron-window.service').ElectronWindowService;
-const me: WindowModel = windowService.getWindow('about');
+const me: ElectronWindowModel = windowService.getWindow('about');
 export const title = 'About Sash';
 
 export function init(): void {
   if (me) {
     me.messages$.subscribe(
-      (msg: WindowMessage) => {
+      (msg: ElectronWindowMessage) => {
         if (msg) {
           const messages = document.getElementById('messages').innerHTML;
           console.log(`Message: ${msg.payload}`);
@@ -22,5 +22,5 @@ export function init(): void {
 }
 
 export function send(msg: string) {
-  windowService.sendMessage(new WindowMessage('main', 'about', msg));
+  windowService.sendMessage(new ElectronWindowMessage('main', 'about', msg));
 }

@@ -1,6 +1,6 @@
 import {BrowserWindow} from 'electron';
-import {WindowModel} from './models/window-model';
-import {WindowMessage} from './models/window-message';
+import {ElectronWindowModel} from './models/electron-window-model';
+import {ElectronWindowMessage} from './models/electron-window-message';
 import {Observable} from 'rxjs/observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import * as path from 'path';
@@ -9,14 +9,14 @@ import * as url from 'url';
 export module ElectronWindowService {
 
   let main: BrowserWindow;
-  let windows: WindowModel[] = [];
+  let windows: ElectronWindowModel[] = [];
   const sharedState$ = new BehaviorSubject<any>(undefined);
 
   export function openWindow(name: string, title: string, loadUrl: string, options?: any) {
     if (!windows.find(
-      (w: WindowModel) => w.name === name
+      (w: ElectronWindowModel) => w.name === name
     )) {
-      const window = new WindowModel(name, sharedState$, loadUrl) ;
+      const window = new ElectronWindowModel(name, sharedState$, loadUrl) ;
       let dir = __dirname.slice(0, __dirname.lastIndexOf('\\'));
       dir = dir.slice(0, dir.lastIndexOf('\\'));
   
@@ -46,7 +46,7 @@ export module ElectronWindowService {
       window.browser.on('closed', function () {
           window.browser = null;
           windows = windows.filter(
-            (w: WindowModel) => w.name !== name
+            (w: ElectronWindowModel) => w.name !== name
           );
       });
   
@@ -54,7 +54,7 @@ export module ElectronWindowService {
     }
   }
 
-  export function sendMessage(msg: WindowMessage) {
+  export function sendMessage(msg: ElectronWindowMessage) {
     const window = getWindow(msg.to);
     if (window) {
       window.message(msg);
@@ -76,7 +76,7 @@ export module ElectronWindowService {
   }
 
 
-  export function getWindow(windowName: string): WindowModel {
+  export function getWindow(windowName: string): ElectronWindowModel {
     for(let i = 0; i < windows.length; i++) {
       if (windows[i].name === windowName) {
         return windows[i];

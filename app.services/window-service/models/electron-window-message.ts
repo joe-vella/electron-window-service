@@ -1,6 +1,6 @@
 
 
-export class WindowMessage {
+export class ElectronWindowMessage {
   constructor(
     public to: string,
     public from: string,

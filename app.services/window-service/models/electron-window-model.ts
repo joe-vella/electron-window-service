@@ -2,13 +2,13 @@
 import {BrowserWindow} from 'electron';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from 'rxjs/Observable';
-import {WindowMessage} from './window-message';
+import {ElectronWindowMessage} from './electron-window-message';
 
-export class WindowModel {
+export class ElectronWindowModel {
   
   public browser: BrowserWindow;
-  private _messages$: BehaviorSubject<WindowMessage>;
-  private _messageLog$: BehaviorSubject<WindowMessage[]>;
+  private _messages$: BehaviorSubject<ElectronWindowMessage>;
+  private _messageLog$: BehaviorSubject<ElectronWindowMessage[]>;
   private _route$: BehaviorSubject<string>;
   private _state$: BehaviorSubject<any>;
 
@@ -18,8 +18,8 @@ export class WindowModel {
     private _sharedStateRef$: BehaviorSubject<any>,
     public initialRoute?: string
   ) {
-    this._messages$ = new BehaviorSubject<WindowMessage>(undefined);
-    this._messageLog$ = new BehaviorSubject<WindowMessage[]>([]);
+    this._messages$ = new BehaviorSubject<ElectronWindowMessage>(undefined);
+    this._messageLog$ = new BehaviorSubject<ElectronWindowMessage[]>([]);
     this._route$ = new BehaviorSubject<string>(undefined);
     this._state$ = new BehaviorSubject<any>(undefined);
 
@@ -28,7 +28,7 @@ export class WindowModel {
     }
   }
 
-  public get messages$(): Observable<WindowMessage> {
+  public get messages$(): Observable<ElectronWindowMessage> {
     return this._messages$;
   }
 
@@ -44,7 +44,7 @@ export class WindowModel {
     return this._sharedStateRef$;
   }
 
-  public get messageLog$(): Observable<WindowMessage[]> {
+  public get messageLog$(): Observable<ElectronWindowMessage[]> {
     return this._messageLog$;
   }
 
@@ -60,7 +60,7 @@ export class WindowModel {
     this._sharedStateRef$.next(state);
   }
 
-  public message(msg: WindowMessage): void {
+  public message(msg: ElectronWindowMessage): void {
     const log = this._messageLog$.getValue();
     log.push(msg);
     this._messageLog$.next(log);
