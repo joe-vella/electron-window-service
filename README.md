@@ -1,4 +1,4 @@
-# electron-windows
+# electron-window-service
 
 This is a minimal Electron application based origionally on the [Quick Start Guide](http://electron.atom.io/docs/tutorial/quick-start) within the Electron documentation. The main window creation code was replaced with WindowService to facilitate creating the main and additional windows. 
 
@@ -36,3 +36,10 @@ Note: If you're using Linux Bash for Windows, [see this guide](https://www.howto
 ## License
 
 [MIT](LICENSE.md)
+
+## Work in Progress
+This code is raw, just written and pushed. I intend to use it within Electron Angular applications. It was inspired by electron-windows-manager but bypasses ipcMain/ipcRenderer communication. Communication between windows is instead managed by the WindowService, which runs in the main process, and manages an array of instantiated windows. Each window is repressented by a model class with observables for messages, state, and shared state. Any window may be addressed, and it's state subscribed to, from any other window and the main process. Each window model also contains the original BrowserWindow created by Electron. 
+
+This demo is purposely simple in terms of the app's implementation. I use no other frameworks like Angular for the UI. This is prurely to test the service. I will post an example app that uses Angular within Electron, and this service, as soon as I have on together.
+
+This is my first public repo. I look forward to and welcome any an all feed back. Thanks!  

@@ -1,7 +1,7 @@
 {
-  "name": "electron-windows",
+  "name": "electron-window-service",
   "version": "1.0.0",
-  "description": "Electron Window Management Service",
+  "description": "Electron Window Creation and State Management Service",
   "main": "main.js",
   "scripts": {
     "build": "tsc",
