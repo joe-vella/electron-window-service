@@ -1,18 +1,11 @@
-# electron-quick-start
+# electron-windows
 
-**Clone and run for a quick way to see Electron in action.**
+This is a minimal Electron application based origionally on the [Quick Start Guide](http://electron.atom.io/docs/tutorial/quick-start) within the Electron documentation. The main window creation code was replaced with WindowService to facilitate creating the main and additional windows. 
 
-This is a minimal Electron application based on the [Quick Start Guide](http://electron.atom.io/docs/tutorial/quick-start) within the Electron documentation.
+The WindowService, which runs in the main process, facilitates creating, managing, and communicating between Electron windows, including sharing state. Please note that while I intend to now use this service within Angular Electron applications, this example usage of the service is bare bones for simplicity.
 
-**Use this app along with the [Electron API Demos](http://electron.atom.io/#get-started) app for API code examples to help you get started.**
+This is my first public repo. I look forward to any and all input from the community.
 
-A basic Electron application needs just these files:
-
-- `package.json` - Points to the app's main file and lists its details and dependencies.
-- `main.js` - Starts the app and creates a browser window to render HTML. This is the app's **main process**.
-- `index.html` - A web page to render. This is the app's **renderer process**.
-
-You can learn more about each of these components within the [Quick Start Guide](http://electron.atom.io/docs/tutorial/quick-start).
 
 ## To Use
 
@@ -25,9 +18,9 @@ git clone https://github.com/electron/electron-quick-start
 cd electron-quick-start
 # Install dependencies
 npm install
-# Run the app
-npm start
 ```
+## Note for VS Code users
+To build this project, after running npm install, please run the copy task (gulp copy) to create and copy the html file to the dist directory. Then, select launch to build and run the project. I'm sure there is a way to make this all one step in VS Code, any input would be appreciated.
 
 Note: If you're using Linux Bash for Windows, [see this guide](https://www.howtogeek.com/261575/how-to-run-graphical-linux-desktop-applications-from-windows-10s-bash-shell/) or use `node` from the command prompt.
 
@@ -42,4 +35,4 @@ Note: If you're using Linux Bash for Windows, [see this guide](https://www.howto
 
 ## License
 
-[CC0 1.0 (Public Domain)](LICENSE.md)
+[MIT](LICENSE.md)
