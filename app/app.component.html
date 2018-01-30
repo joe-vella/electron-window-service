@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Sash</title>
+    <script>
+      app = require('./app.component.js');
+      app.init();
+    </script>
+  </head>
+  <body>
+    <h1><script>document.write(app.title)</script></h1>
+    <!-- All of the Node.js APIs are available in this renderer process. -->
+    We are using Node.js <script>document.write(process.versions.node)</script>,
+    Chromium <script>document.write(process.versions.chrome)</script>,
+    and Electron <script>document.write(process.versions.electron)</script>.
+
+    <div style="padding:15px">
+      <button onclick="app.about()">About</button> 
+    </div>
+
+    <div style="padding: 15px;">
+      <span>Send Message to About Window</span>
+      <input id="msg">
+      <button onclick="app.send(document.getElementById('msg').value)">Send</button> 
+    </div>
+
+    <h4>Messages from About Window</h4>
+    <div id="messages" style="padding: 15px"></div>
+
+  </body>
+</html>

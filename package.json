@@ -1,0 +1,27 @@
+{
+  "name": "electron-windows",
+  "version": "1.0.0",
+  "description": "Electron Window Management Service",
+  "main": "main.js",
+  "scripts": {
+    "build": "tsc",
+    "prestart": "npm run build",
+    "start": "electron ."
+  },
+  "repository": "",
+  "keywords": [
+    "Electron",
+    "window manager",
+    "service"
+  ],
+  "author": "Joe Vella",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "~1.7.8"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "rxjs": "^5.5.2",
+    "typescript": "^2.6.2"
+  }
+}
