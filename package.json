@@ -12,7 +12,8 @@
   "keywords": [
     "Electron",
     "window manager",
-    "service"
+    "state management",
+    "observables"
   ],
   "author": "Joe Vella",
   "license": "MIT",

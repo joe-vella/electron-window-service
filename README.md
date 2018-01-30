@@ -1,8 +1,6 @@
 # electron-window-service
 
-This is a minimal Electron application based origionally on the [Quick Start Guide](http://electron.atom.io/docs/tutorial/quick-start) within the Electron documentation. The main window creation code was replaced with WindowService to facilitate creating the main and additional windows. 
-
-The WindowService, which runs in the main process, facilitates creating, managing, and communicating between Electron windows, including sharing state. Please note that while I intend to now use this service within Angular Electron applications, this example usage of the service is bare bones for simplicity.
+The Electron Window Service, which runs in the main process, facilitates creating, managing, and communicating between Electron windows, including sharing state. Please note that while I intend to now use this service within Angular Electron applications, this example usage of the service is bare bones for simplicity.
 
 This is my first public repo. I look forward to any and all input from the community.
 
