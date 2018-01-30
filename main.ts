@@ -1,9 +1,9 @@
 import * as electron from 'electron';
-import {WindowService} from './app.services/window-service/window.service';
+import {ElectronWindowService} from './app.services/window-service/electron-window.service';
 
 // Module to control application life.
 const app = electron.app;
-const windowService = WindowService;
+const windowService = ElectronWindowService;
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

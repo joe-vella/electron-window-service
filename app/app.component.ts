@@ -3,7 +3,7 @@ import {WindowModel} from '../app.services/window-service/models/window-model';
 import {WindowMessage} from '../app.services/window-service/models/window-message';
 import * as electron from 'electron';
 
-const windowService = electron.remote.require('./app.services/window-service/window.service').WindowService;
+const windowService = electron.remote.require('./app.services/window-service/electron-window.service').ElectronWindowService;
 const me: WindowModel = windowService.getWindow('main');
 
 export const title = 'Welcome to Sash';

@@ -6,7 +6,7 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import * as path from 'path';
 import * as url from 'url';
 
-export module WindowService {
+export module ElectronWindowService {
 
   let main: BrowserWindow;
   let windows: WindowModel[] = [];
@@ -93,4 +93,4 @@ export module WindowService {
   }
 }
 
-export default WindowService;
+export default ElectronWindowService;
