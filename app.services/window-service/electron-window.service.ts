@@ -96,6 +96,13 @@ export module ElectronWindowService {
     _sharedState$.next(state);
   }
 
+  export function close(windowName: string): void {
+    const w = getWindow(windowName);
+    if (w && w.browser) {
+      w.browser.close();
+    } 
+  }
+
   export function getWindow(windowName: string): ElectronWindowModel {
     for(let i = 0; i < _windows.length; i++) {
       if (_windows[i].name === windowName) {

@@ -18,12 +18,16 @@ export function init(): void {
   }
 }
 
-export function send(msg: string) {
+export function send(msg: string): void {
   _windowService.sendMessage(new ElectronWindowMessage('about', 'main', msg));
 }
 
-export function about() {
+export function about(): void {
   _windowService.openWindow('about', 'About', 'about/about.component.html', {width: 800, height: 600});
+}
+
+export function closeAbout(): void {
+  _windowService.close('about');
 }
 
 function watchMessages(): void {
