@@ -12,6 +12,15 @@ export module ElectronWindowService {
   let _windows: ElectronWindowModel[] = [];
   const _me = new BehaviorSubject<ElectronWindowModel>(undefined);
   const _sharedState$ = new BehaviorSubject<any>(undefined);
+  const _windowNames$ = new BehaviorSubject<string[]>([]);
+
+  export function windowNames$(): Observable<string[]> {
+    return _windowNames$;
+  }
+
+  export function sharedState$(): Observable<undefined> {
+    return this._sharedState$;
+  }
 
   export function openWindow(name: string, title: string, loadUrl: string, options?: any) {
     if (!_windows.find(
@@ -49,10 +58,16 @@ export module ElectronWindowService {
           _windows = _windows.filter(
             (w: ElectronWindowModel) => w.name !== name
           );
+          _windowNames$.next(
+            _windows.map((w: ElectronWindowModel) => w.name)
+          );
       });
   
-      _windows.push(window);
       _me.next(window);
+      _windows.push(window);
+      _windowNames$.next(
+        _windows.map((w: ElectronWindowModel) => w.name)
+      );
     }
   }
 
@@ -70,11 +85,15 @@ export module ElectronWindowService {
     }
   }
 
-  export function updateState(windowName: string, route: string): void {
+  export function updateWindowState(windowName: string, state: any): void {
     const window = getWindow(windowName);
     if (window) {
-      window.route(route);
+      window.state(state);
     }
+  }
+
+  export function updateSharedState(state: any): void {
+    _sharedState$.next(state);
   }
 
   export function getWindow(windowName: string): ElectronWindowModel {
@@ -85,7 +104,7 @@ export module ElectronWindowService {
     }
   }
 
-  export function windowState$(windowName: string): Observable<any> {
+  export function getWindowState$(windowName: string): Observable<any> {
     for(let i = 0; i < _windows.length; i++) {
       if (_windows[i].name === windowName) {
         return _windows[i].state$;

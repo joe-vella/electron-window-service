@@ -10,13 +10,19 @@
   </head>
   <body>
     <h1><script>document.write(app.title)</script></h1>
-    
+
     <p>Window Name: <span  style="font-weight:bold"><script>document.write(app.windowName())</script></span></p>
 
-    We are using Node.js <script>document.write(process.versions.node)</script>,
+    <p>We are using Node.js <script>document.write(process.versions.node)</script>,
     Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+    and Electron <script>document.write(process.versions.electron)</script>.</p>
 
+    <p>Currently Opened Windows</p>
+    <div id="windowList"></div>
+
+    <br/>
+    <br/>
+    
     <div style="padding:15px">
       <button onclick="app.about()">About</button> 
     </div>
