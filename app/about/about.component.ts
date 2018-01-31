@@ -3,13 +3,16 @@ import {ElectronWindowModel} from '../../app.services/window-service/models/elec
 import {ElectronWindowMessage} from '../../app.services/window-service/models/electron-window-message';
 import * as electron from 'electron';
 
-const windowService = electron.remote.require('./app.services/window-service/electron-window.service').ElectronWindowService;
-const me: ElectronWindowModel = windowService.getWindow('about');
-export const title = 'About Sash';
+let _windowName = '';
+const _windowService = electron.remote.require('./app.services/window-service/electron-window.service').ElectronWindowService;
+const _me: ElectronWindowModel = _windowService.getWindow('about');
+export const title = 'About Electron Window Service';
+export function windowName() { return _windowName; };
 
 export function init(): void {
-  if (me) {
-    me.messages$.subscribe(
+  if (_me) {
+    _windowName = _me.name;
+    _me.messages$.subscribe(
       (msg: ElectronWindowMessage) => {
         if (msg) {
           const messages = document.getElementById('messages').innerHTML;
@@ -22,5 +25,5 @@ export function init(): void {
 }
 
 export function send(msg: string) {
-  windowService.sendMessage(new ElectronWindowMessage('main', 'about', msg));
+  _windowService.sendMessage(new ElectronWindowMessage('main', 'about', msg));
 }

@@ -8,23 +8,24 @@ import * as url from 'url';
 
 export module ElectronWindowService {
 
-  let main: BrowserWindow;
-  let windows: ElectronWindowModel[] = [];
-  const sharedState$ = new BehaviorSubject<any>(undefined);
+  let _main: BrowserWindow;
+  let _windows: ElectronWindowModel[] = [];
+  const _me = new BehaviorSubject<ElectronWindowModel>(undefined);
+  const _sharedState$ = new BehaviorSubject<any>(undefined);
 
   export function openWindow(name: string, title: string, loadUrl: string, options?: any) {
-    if (!windows.find(
+    if (!_windows.find(
       (w: ElectronWindowModel) => w.name === name
     )) {
-      const window = new ElectronWindowModel(name, sharedState$, loadUrl) ;
+      const window = new ElectronWindowModel(name, _sharedState$, loadUrl) ;
       let dir = __dirname.slice(0, __dirname.lastIndexOf('\\'));
       dir = dir.slice(0, dir.lastIndexOf('\\'));
   
       if (name !== 'main') {
         if (!options) {
-          options = {parent: main};
+          options = {parent: _main};
         } else { 
-          options.parent = main;
+          options.parent = _main;
         }
       }
       
@@ -40,17 +41,18 @@ export module ElectronWindowService {
       // Open the DevTools.
       window.browser.webContents.openDevTools();
       if (name === 'main') {
-        main = window.browser;
+        _main = window.browser;
       }
   
       window.browser.on('closed', function () {
           window.browser = null;
-          windows = windows.filter(
+          _windows = _windows.filter(
             (w: ElectronWindowModel) => w.name !== name
           );
       });
   
-      windows.push(window);
+      _windows.push(window);
+      _me.next(window);
     }
   }
 
@@ -75,21 +77,26 @@ export module ElectronWindowService {
     }
   }
 
-
   export function getWindow(windowName: string): ElectronWindowModel {
-    for(let i = 0; i < windows.length; i++) {
-      if (windows[i].name === windowName) {
-        return windows[i];
+    for(let i = 0; i < _windows.length; i++) {
+      if (_windows[i].name === windowName) {
+        return _windows[i];
       }
     }
   }
 
-  export function getWindowState(windowName: string): Observable<any> {
-    for(let i = 0; i < windows.length; i++) {
-      if (windows[i].name === windowName) {
-        return windows[i].state$;
+  export function windowState$(windowName: string): Observable<any> {
+    for(let i = 0; i < _windows.length; i++) {
+      if (_windows[i].name === windowName) {
+        return _windows[i].state$;
       }
     }
+  }
+
+  export function getMe(): ElectronWindowModel {
+    const w = _me.getValue();
+    _me.next(undefined);
+    return w;
   }
 }
 

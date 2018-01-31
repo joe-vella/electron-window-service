@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Sash</title>
+    <title>Electron Window Service</title>
     <script>
       app = require('./app.component.js');
       app.init();
@@ -10,7 +10,9 @@
   </head>
   <body>
     <h1><script>document.write(app.title)</script></h1>
-    <!-- All of the Node.js APIs are available in this renderer process. -->
+    
+    <p>Window Name: <span  style="font-weight:bold"><script>document.write(app.windowName())</script></span></p>
+
     We are using Node.js <script>document.write(process.versions.node)</script>,
     Chromium <script>document.write(process.versions.chrome)</script>,
     and Electron <script>document.write(process.versions.electron)</script>.
