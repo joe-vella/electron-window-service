@@ -24,6 +24,6 @@ export function init(): void {
   }
 }
 
-export function send(msg: string) {
+export function send(msg: string): void {
   _windowService.sendMessage(new ElectronWindowMessage('main', 'about', msg));
 }

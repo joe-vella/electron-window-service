@@ -14,18 +14,29 @@ export module ElectronWindowService {
   const _sharedState$ = new BehaviorSubject<any>(undefined);
   const _windowNames$ = new BehaviorSubject<string[]>([]);
 
+  /**
+   * Subscribe to the list of active window names
+   */
   export function windowNames$(): Observable<string[]> {
     return _windowNames$;
   }
 
+  /**
+   * Subscribe to state that is shared between all windows
+   */
   export function sharedState$(): Observable<undefined> {
     return this._sharedState$;
   }
 
+  /**
+   * Open a new Electron window
+   * @param name 
+   * @param title 
+   * @param loadUrl 
+   * @param options 
+   */
   export function openWindow(name: string, title: string, loadUrl: string, options?: any) {
-    if (!_windows.find(
-      (w: ElectronWindowModel) => w.name === name
-    )) {
+    if (isWindow(name) === false) {
       const window = new ElectronWindowModel(name, _sharedState$, loadUrl) ;
       let dir = __dirname.slice(0, __dirname.lastIndexOf('\\'));
       dir = dir.slice(0, dir.lastIndexOf('\\'));
@@ -71,6 +82,10 @@ export module ElectronWindowService {
     }
   }
 
+  /**
+   * 
+   * @param msg Send a message to a window
+   */
   export function sendMessage(msg: ElectronWindowMessage) {
     const window = getWindow(msg.to);
     if (window) {
@@ -78,6 +93,11 @@ export module ElectronWindowService {
     }
   }
 
+  /**
+   * Send a new route to a window
+   * @param windowName 
+   * @param route 
+   */
   export function updateRoute(windowName: string, route: string): void {
     const window = getWindow(windowName);
     if (window) {
@@ -85,6 +105,9 @@ export module ElectronWindowService {
     }
   }
 
+  /**
+   * Update a window's state
+   */
   export function updateWindowState(windowName: string, state: any): void {
     const window = getWindow(windowName);
     if (window) {
@@ -92,10 +115,17 @@ export module ElectronWindowService {
     }
   }
 
+  /**
+   * Update state shared between all windows
+   */
   export function updateSharedState(state: any): void {
     _sharedState$.next(state);
   }
 
+  /**
+   * 
+   * @param windowName Close a window
+   */
   export function close(windowName: string): void {
     const w = getWindow(windowName);
     if (w && w.browser) {
@@ -103,6 +133,10 @@ export module ElectronWindowService {
     } 
   }
 
+  /**
+   * Get an ElectronWindowModel object containing the Electron BrowserWindow
+   * @param windowName 
+   */
   export function getWindow(windowName: string): ElectronWindowModel {
     for(let i = 0; i < _windows.length; i++) {
       if (_windows[i].name === windowName) {
@@ -111,6 +145,10 @@ export module ElectronWindowService {
     }
   }
 
+  /**
+   * Subscribe to the state from a window
+   * @param windowName 
+   */
   export function getWindowState$(windowName: string): Observable<any> {
     for(let i = 0; i < _windows.length; i++) {
       if (_windows[i].name === windowName) {
@@ -119,10 +157,27 @@ export module ElectronWindowService {
     }
   }
 
+  /**
+   * Get the window for a particular renderer process. Note, this only works once!
+   */
   export function getMe(): ElectronWindowModel {
     const w = _me.getValue();
     _me.next(undefined);
     return w;
+  }
+
+  /**
+   * 
+   * @param windowName Determine if a window exists
+   */
+  export function isWindow(windowName: string): boolean {
+    let result = false;
+    for(let i = 0; i < _windows.length; i++) {
+      if (_windows[i].name === windowName) {
+        result = true;
+      }
+    }
+    return result;
   }
 }
 
