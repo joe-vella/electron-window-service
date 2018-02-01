@@ -18,11 +18,11 @@
   "author": "Joe Vella",
   "license": "MIT",
   "dependencies": {
-    "electron": "~1.7.8"
+    "electron": "~1.7.8",
+    "rxjs": "^5.5.2"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
-    "rxjs": "^5.5.2",
     "typescript": "^2.6.2"
   }
 }

@@ -52,6 +52,7 @@ export module ElectronWindowService {
       window.browser = new BrowserWindow(options);
       window.browser.setTitle(title);
       
+      // NOTE: I had to remove + '/app/' when using this in an angular app. ~JV
       window.browser.loadURL(url.format({
         pathname: path.join(dir + '/app/', loadUrl),
         protocol: 'file:',
