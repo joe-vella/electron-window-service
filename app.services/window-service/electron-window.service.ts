@@ -33,10 +33,10 @@ export module ElectronWindowService {
    * @param name 
    * @param title 
    * @param loadUrl 
-   * @param options 
+   * @param options (BrowserWindow options)
    */
   export function openWindow(name: string, title: string, loadUrl: string, options?: any) {
-    if (isWindow(name) === false) {
+    if (name && isWindow(name) === false) {
       const window = new ElectronWindowModel(name, _sharedState$, loadUrl) ;
       let dir = __dirname.slice(0, __dirname.lastIndexOf('\\'));
       dir = dir.slice(0, dir.lastIndexOf('\\'));
