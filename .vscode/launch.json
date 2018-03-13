@@ -14,12 +14,12 @@
           "name": "Launch",
           "type": "node",
           "request": "launch",
-          "program": "${workspaceRoot}\\dist\\main.js",
+          "program": "${workspaceRoot}/dist/main.js",
           "stopOnEntry": false,
           "args": [],
           "cwd": "${workspaceRoot}",
           "preLaunchTask": "build",
-          "runtimeExecutable": "${workspaceRoot}\\node_modules\\.bin\\electron.cmd",
+          "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
           "runtimeArgs": [
               "--no-lazy"
           ],
